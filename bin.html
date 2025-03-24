@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Column Grid with Animated Image</title>
+  <style>
+    :root {
+      --clr-PAGER: #FF8A00;
+      --clr-PAGER1: black; /* First color for loader */
+      --clr-PAGER2: red;   /* Second color for loader */
+    }
+
+    /* Basic styles for the grid and containers */
+    body, html {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      background-color: var(--clr-PAGER);
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    section {
+      background-color: var(--clr-PAGER);
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Animation for the image to grow on page load */
+    #top-container img {
+      max-width: 100%;
+      height: auto;
+      animation: grow 1.5s ease forwards; /* Apply grow animation */
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Keyframes for grow animation */
+    @keyframes grow {
+      from {
+        width: 0;
+        height: 0;
+      }
+      to {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    /* Loader styling */
+    .loader {
+      border-top: 2px solid var(--clr-PAGER1);
+      border-right: 2px solid var(--clr-PAGER);
+      display: inline-block;
+      box-sizing: border-box;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      position: relative;
+      animation: rotation 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .loader::after {
+      content: '';
+      border-left: 2px solid var(--clr-PAGER2);
+      border-bottom: 2px solid var(--clr-PAGER);
+      width: 30px;
+      height: 30px;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+      position: absolute;
+      border-radius: 50%;
+      animation: rotation 0.5s linear infinite reverse;
+    }
+
+    /* Loader rotation animation */
+    @keyframes rotation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid-container">
+    <!-- Top container with animated image -->
+    <section id="top-container">
+      <img src="images/pager full.svg" class="image-logo" alt="Animated Image">
+    </section>
+
+    <!-- Bottom container with loader -->
+    <section id="bottom-container">
+      <div class="loader"></div>  
+    </section>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LogIn Page</title>
+    <style>
+      :root {
+        --clr-PAGER: #ff8a00;
+        --clr-PAGER1: #bfc1c2;
+        --clr-PAGER2: #2a2b2e;
+        --clr-FONTCOLOR: #f4b393;
+      }
+
+      html{
+        margin: auto;
+        height: 100%;
+      }
+      body {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        height: 100%;
+        background-color: #dbdddf;
+      }
+
+      .login-main {
+        height: 100vh;
+        background-color: white;
+        
+      }
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        padding-top: 15%;
+        transition: transform 0.3s ease;
+      }
+
+      .login-logo {
+        width: 15rem;
+        height: 15rem;
+      }
+
+      .horizontal-lines {
+        padding-top: 5%;
+        padding-bottom: 5%;
+        display: inline-flex;
+      }
+
+      .horizontal-lines hr {
+        width: 50px;
+        height: 0.5px;
+        background-color: black;
+      }
+
+      .horizontal-lines span {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .create-acc-button,
+      .sign-in-button {
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        width: 15rem;
+        height: 2.5rem;
+        border-radius: 5px;
+        border: none;
+        font-weight: bold;
+      }
+
+      .create-acc-button {
+        margin-top: 20%;
+        background-color: rgb(154, 154, 154);
+      }
+
+      .sign-in-button {
+        background-color: var(--clr-PAGER);
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px 7px 13px -3px inset;
+      }
+
+      .input-container {
+        
+        background-color:/*#1083fe*/ #dbdddf;
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        bottom: 0;
+        top: 100%;
+        overflow:hidden;
+        transition: top 1s ease-in-out;
+        margin-left: 0px;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px 7px 13px -3px inset;
+      }
+
+      .input-container.expanded {
+        animation: bounce 0.6s ease-in forwards;
+      }
+
+      .input-container.closed {
+        animation: bounce-reverse 1s ease-in-out forwards;
+      }
+
+      @keyframes bounce {
+  0% {
+    top: 90%;
+  }
+  25% {
+    top: 35%;
+  }
+  50% {
+    top: 40%;
+  }
+  75% {
+    top: 35%;
+  }
+  100% {
+    top: 40%;
+  }
+}
+
+@keyframes bounce-reverse {
+  0% {
+    top: 40%;
+  }
+  50% {
+    top: 35%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+
+      /* Add the shake animation */
+      @keyframes shake {
+        0%, 100% {
+          transform: translateX(0);
+        }
+        10%, 30%, 50%, 70%, 90% {
+          transform: translateX(-5px);
+        }
+        20%, 40%, 60%, 80% {
+          transform: translateX(5px);
+        }
+      }
+
+      /* Apply shake animation to image container */
+      .shake {
+        animation: shake 0.6s ease-in-out;
+      }
+
+      .input-box {
+        
+        background-color: transparent;
+        border: solid;
+        border-bottom: 1px solid;
+        height: 2rem;
+        width: 10rem;
+        margin-top: 0px;
+        /*margin-top: 30px;*/
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        opacity: 0;
+        transform: translateX(-200%);
+      }
+
+      .input-container.expanded .input-box {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      
+
+      .input-container button {
+        color: var(--clr-FONTCOLOR);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        font-weight: bold;
+        width: 10rem;
+        height: 2.5rem;
+        
+        border: none;
+        border-radius: 6px;
+        background-color: var(--clr-PAGER2);
+        
+      }
+
+      input::placeholder {
+        color: black;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        font-weight: bold;
+        font-size: small;
+      }
+      .google-outer{
+        
+        width: 10rem;
+        height: 1.9rem;
+        background-color: var(--clr-PAGER1);
+        background-size: cover;
+       
+        border-radius: 50px;
+        margin-top: 10px;
+      }
+      .google-login{
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50px;
+      }
+
+.google-login {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
+}
+
+.google-login:hover {
+  transform: scale(1.2);
+}
+
+.google-outer {
+  width: 10rem;
+  height: 1.9rem;
+  background-color: var(--clr-PAGER1);
+  background-size: cover;
+  border-radius: 50px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  overflow: hidden;
+  
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.google-outer:hover {
+  width: 12rem;
+  transition: width 0.4s ease;
+}
+
+.input-signin-creat-acc{
+  box-shadow: rgb(249, 193, 102) 0px 5px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.forget-password{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: x-small;
+  font-weight: bold;
+  color: rgb(249, 193, 102);
+  text-decoration: underline;
+  cursor: pointer;
+  
+}
+
+@media (min-width: 504px)  {
+        .login-main {
+          width: 90%; 
+           left: 1%;
+           position: relative; 
+           bottom: 0%; 
+           height: 115vh;
+           
+           margin-top: -60px;
+           margin-bottom: 0px;
+           
+        }
+        .image-container {
+        display: flex;
+        justify-content: center;
+        padding-top: 15%;
+        transition: transform 0.3s ease;
+      }
+
+      .input-container{
+        padding-bottom: 0px;
+        
+        
+      }
+      
+      .back-button{
+        margin-top: 15%;
+        margin-left: 2px;
+      }
+
+      body{
+        display: grid;
+        grid-template-columns: repeat(2,50% 50%);
+      }
+
+      .input-signin-creat-acc{
+        
+      }
+
+    }
+      
+    </style>
+  </head>
+  <body>
+    <div class="login-main">
+      <span style="float: left;" onclick="backbutton();" class="back-button"><img src="images/back.png" onclick="backbutton();"></span>
+      <div class="image-container" id="imageContainer">
+        
+        <img
+          src="images/pager-big-img.png"
+          class="login-logo"
+          style="padding-right: 15%"
+        />
+      </div>
+
+      <div class="buttons-container">
+        <center>
+          <button
+            class="create-acc-button"
+            onclick="startAnimation(); showSignInInputs();"
+          >
+            Create Account
+          </button>
+        </center>
+
+        <center>
+          <div class="horizontal-lines">
+            <hr />
+            <span>or</span>
+            <hr />
+          </div>
+        </center>
+
+        <center>
+          <button
+            class="sign-in-button"
+            onclick="startAnimation(); showCreateAccountInputs();"
+          >
+            Sign In
+          </button>
+        </center>
+      </div>
+
+      <div class="input-container" id="inputContainer">
+        <center>
+          <input
+            type="text"
+            placeholder="First Name"
+            name="firstname"
+            class="input-box  firstname-input"
+            id="firstname" style="margin-bottom: 5px; margin-top: 5px; "
+          /><br />
+          <input
+            type="text"
+            placeholder="Last Name"
+            name="lastname"
+            class="input-box  lastname-input"
+            id="lastname" style="margin-bottom: 5px;"
+            
+          /><br />
+          <input
+            type="email"
+            placeholder="E-Mail"
+            name="email"
+            class="input-box"
+            id="email" style="margin-bottom: 5px; margin-top: -5px;"
+          /><br />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            class="input-box"
+            id="password" style="margin-bottom: 0px;"
+          /><br />
+          <span class="forget-password">forget password?</span><br/>
+          <button  class="input-signin-creat-acc" onclick="topstatus();">
+            Sign In
+          </button>
+          <div class="google-outer">
+            <center>
+          <span><img src="images/google-svgrepo-com.svg" class="google-login" style="margin-top: 3px; padding-left: -2px;" ></span>
+          <span><img src="images/facebook-1-svgrepo-com.svg" class="google-login" style="margin-top: 3px; padding-left: 8px;"></span>
+            <span><img src="images/x.svg" class="google-login"style="margin-top: 3px; padding-left: 8px;"></span>
+              <span><img src="images/apple-svgrepo-com.svg" class="google-login" style="margin-top: 3px; padding-left: 8px;"></span>
+          </center>
+          </div>
+        </center>
+      </div>
+    </div>
+
+
+    <div  style="background-image: url(images/orange\ job.jpg); background-size: cover;">
+      h
+    </div>
+
+
+    
+    
+    
+
+    <script>
+      var inputboxstatus=false;
+      const firstname = document.getElementById("firstname");
+      const lastname = document.getElementById("lastname");
+      const signInButton = document.querySelector(".input-signin-creat-acc");
+      const forget_password=document.querySelector('.forget-password');
+
+      function topstatus(){
+        inputboxstatus=false;
+      }
+      function startAnimation() {
+        const inputContainer = document.getElementById("inputContainer");
+        const imageContainer = document.getElementById("imageContainer");
+
+        inputContainer.classList.remove("closed");
+        inputContainer.classList.add("expanded");
+
+        imageContainer.classList.add("shake");
+        setTimeout(() => imageContainer.classList.remove("shake"), 500);
+      }
+
+      function stopAnimation() {
+        const inputContainer = document.getElementById("inputContainer");
+        inputContainer.classList.remove("expanded");
+        inputContainer.classList.add("closed");
+      }
+
+      function showCreateAccountInputs() {
+        // Hide the first and last name fields
+        firstname.style.display = "none";
+        lastname.style.display = "none";
+        signInButton.innerHTML = "Sign In";
+        forget_password.style.display="contents";
+        inputboxstatus=true;
+      }
+
+      function showSignInInputs() {
+        const inputsize = document.querySelectorAll('.input-box');
+        inputsize.forEach((input) => {
+          
+          input.style.width = "10rem";
+           input.style.padding= "5px";
+           signInButton.style.marginTop="20px";
+           signInButton.style.width="15rem";
+           forget_password.style.display="none";
+
+           inputboxstatus=true;
+           
+        });
+        // Show first and last name with animation
+        firstname.style.display = "block";
+        lastname.style.display = "block";
+        // Trigger the animation by re-adding class
+        setTimeout(() => {
+          firstname.classList.add("input-box");
+          lastname.classList.add("input-box");
+        }, 0);
+        signInButton.innerHTML = "Create Account";
+      }
+
+
+      function backbutton() {
+  
+  if (inputboxstatus===true) {
+    stopAnimation();
+    
+  } else {
+    console.log("Element '.input-container' not found");
+  }
+}
+
+
+
+
+
+
+
+    </script>
+  </body>
+</html>
+
+
